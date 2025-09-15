@@ -1,0 +1,20 @@
+#
+# Open Application Filter configuration
+#
+
+config OPENAPPFILTER
+	tristate "Open Application Filter support"
+	depends on NET
+	depends on NETFILTER
+	depends on NETFILTER_ADVANCED
+	depends on NF_CONNTRACK
+	depends on NF_CONNTRACK_MARK
+	depends on NETFILTER_XTABLES
+	default n
+	help
+	  This module adds application identification and filtering capabilities
+	  to the Linux kernel. It can identify applications by their network
+	  behavior and filter them based on user-defined rules.
+	  
+	  To compile this driver as a module, choose M here. The module
+	  will be called openappfilter.
