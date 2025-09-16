@@ -30,14 +30,15 @@ EXTRA_CFLAGS:=-Wno-declaration-after-statement -Wno-strict-prototypes -Wno-unuse
 MAKE_OPTS:= \
 	$(KERNEL_MAKE_FLAGS) \
 	M="$(PKG_BUILD_DIR)" \
-	# 关键覆盖：清除HOSTCFLAGS中的严格选项
-    HOSTCFLAGS="$(subst -Wall,,$(subst -Wmissing-prototypes,,$(subst -Wstrict-prototypes,,$(HOSTCFLAGS))))" \
-	EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
 	$(EXTRA_KCONFIG)
 
 define Build/Compile
 	$(MAKE) -C "$(LINUX_DIR)" \
 		$(MAKE_OPTS) \
+		# 关键覆盖：清除HOSTCFLAGS中的严格选项
+        HOSTCFLAGS="$(subst -Wall,,$(subst -Wmissing-prototypes,,$(subst -Wstrict-prototypes,,$(HOSTCFLAGS))))" \
+        # 强制传递我们的选项
+        EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
 		modules
 endef
 
