@@ -286,7 +286,7 @@ int add_app_feature(int appid, char *name, char *feature)
 	char dict[128] = {0};
 	int proto = IPPROTO_TCP;
 	int param_num = 0;
-	int dst_port = 0;
+//	int dst_port = 0;
 	int src_port = 0;
 	char tmp_buf[128] = {0};
 	int ignore = 0;
@@ -587,7 +587,7 @@ int parse_flow_proto(struct sk_buff *skb, flow_info_t *flow)
 	int ipp_len;
 	struct tcphdr *tcph = NULL;
 	struct udphdr *udph = NULL;
-	struct nf_conn *ct = NULL;
+//	struct nf_conn *ct = NULL;
 	struct iphdr *iph = NULL;
 	struct ipv6hdr *ip6h = NULL;
 	if (!skb)
@@ -1360,7 +1360,7 @@ u_int32_t app_filter_hook_gateway_handle(struct sk_buff *skb, struct net_device 
 {
 	unsigned long long total_packets = 0;
 	flow_info_t flow;
-	u_int8_t smac[ETH_ALEN];
+//	u_int8_t smac[ETH_ALEN];
 	enum ip_conntrack_info ctinfo;
 	struct nf_conn *ct = NULL;
 	struct nf_conn_acct *acct;

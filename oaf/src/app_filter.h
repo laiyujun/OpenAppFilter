@@ -168,7 +168,42 @@ typedef struct flow_info{
 	af_feature_node_t *feature;
 }flow_info_t;
 
-
+// 函数原型声明
+char *ipv6_to_str(const struct in6_addr *addr, char *str);
+int __add_app_feature(char *feature, int appid, char *name, int proto, int src_port, ...);
+int validate_range_value(char *range_str);
+int parse_range_value(char *range_str, range_value_t *range);
+int parse_port_info(char *port_str, port_info_t *info);
+int af_match_port(port_info_t *info, int port);
+int add_app_feature(int appid, char *name, char *feature);
+void af_init_feature(char *feature_str);
+void load_feature_buf_from_file(char **config_buf);
+int load_feature_config(void);
+void af_add_feature_msg_handle(char *data, int len);
+int parse_flow_proto(struct sk_buff *skb, flow_info_t *flow);
+int check_domain(char *h, int len);
+int dpi_https_proto(flow_info_t *flow);
+void dpi_http_proto(flow_info_t *flow);
+char *k_memstr(char *data, char *str, int size);
+int af_match_by_pos(flow_info_t *flow, af_feature_node_t *node);
+int af_match_by_url(flow_info_t *flow, af_feature_node_t *node);
+int af_match_one(flow_info_t *flow, af_feature_node_t *node);
+int match_feature(flow_info_t *flow);
+int match_app_filter_rule(int appid, af_client_info_t *client);
+int af_update_client_app_info(af_client_info_t *node, int app_id, int drop);
+int af_match_bcast_packet(flow_info_t *f);
+int af_match_local_packet(flow_info_t *f);
+int update_url_visiting_info(af_client_info_t *client, flow_info_t *flow);
+int dpi_main(struct sk_buff *skb, flow_info_t *flow);
+void af_get_smac(struct sk_buff *skb, u_int8_t *smac);
+int is_ipv4_broadcast(uint32_t ip);
+int is_ipv4_multicast(uint32_t ip);
+int af_check_bcast_ip(flow_info_t *f);
+u_int32_t app_filter_hook_bypass_handle(struct sk_buff *skb, struct net_device *dev);
+u_int32_t app_filter_hook_gateway_handle(struct sk_buff *skb, struct net_device *dev);
+void init_oaf_timer(void);
+void fini_oaf_timer(void);
+int netlink_oaf_init(void);
 
 int regexp_match(char *reg, char *text);
 int hash_mac(unsigned char *mac);

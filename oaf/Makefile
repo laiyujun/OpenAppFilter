@@ -33,11 +33,6 @@ MAKE_OPTS:= \
 	$(EXTRA_KCONFIG)
 
 define Build/Compile
-	sed -i 's/-Werror//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
-	sed -i 's/-Wmissing-prototypes//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
-	sed -i 's/-Wstrict-prototypes//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
-	sed -i 's/-Wmissing-declarations//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
-	
 	$(MAKE) -C "$(LINUX_DIR)" \
 		$(MAKE_OPTS) \
         EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
