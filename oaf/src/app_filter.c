@@ -2,6 +2,8 @@
 	author: derry
 	date:2019/1/10
 */
+// 在文件顶部添加
+#warning "This is a test warning from app_filter.c"
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/version.h>

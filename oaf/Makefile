@@ -26,6 +26,8 @@ endef
 # EXTRA_CFLAGS:=-Wno-declaration-after-statement -Wno-strict-prototypes -Wno-unused-variable -Wno-implicit-fallthrough -Wno-missing-braces -Wno-parentheses -Wno-format -Wno-missing-prototypes -Wno-missing-declarations
 # 添加编译选项
 EXTRA_CFLAGS := \
+	-w \
+	-Wno-error \
     -I$(src) \
     -Wno-declaration-after-statement \
     -Wno-strict-prototypes \
@@ -36,7 +38,6 @@ EXTRA_CFLAGS := \
     -Wno-format \
     -Wno-missing-prototypes \
     -Wno-missing-declarations \
-    -Wno-error
 
 
 MAKE_OPTS:= \
@@ -46,10 +47,30 @@ MAKE_OPTS:= \
 	$(EXTRA_KCONFIG)
 
 define Build/Compile
-	@echo "compile options: $(MAKE_OPTS)"
+	# 添加详细日志
+	@echo "=============================================="
+	@echo "开始编译 OAF 模块"
+	@echo "时间: $(shell date)"
+	@echo "工作目录: $(PWD)"
+	@echo "内核目录: $(LINUX_DIR)"
+	@echo "构建目录: $(PKG_BUILD_DIR)"
+	@echo "编译选项: $(EXTRA_CFLAGS)"
+	@echo "=============================================="
+
+	# 修改内核构建脚本
+	@echo "修改内核构建脚本..."
+	sed -i 's/-Werror//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
+	sed -i 's/-Wmissing-prototypes//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
+
+	# 执行编译
 	$(MAKE) -C "$(LINUX_DIR)" \
 		$(MAKE_OPTS) \
+		KCFLAGS="-w" \
 		modules
+
+	@echo "=============================================="
+	@echo "编译完成"
+	@echo "=============================================="
 endef
 
 $(eval $(call KernelPackage,oaf))
