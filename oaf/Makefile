@@ -33,10 +33,10 @@ MAKE_OPTS:= \
 	$(EXTRA_KCONFIG)
 
 define Build/Compile
-	# 修改内核构建脚本，移除严格选项
 	sed -i 's/-Werror//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
     sed -i 's/-Wmissing-prototypes//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
     sed -i 's/-Wstrict-prototypes//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
+	sed -i 's/-Wmissing-declarations//g' $(LINUX_DIR)/scripts/Makefile.extrawarn
 	
 	$(MAKE) -C "$(LINUX_DIR)" \
 		$(MAKE_OPTS) \
