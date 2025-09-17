@@ -23,19 +23,32 @@ define KernelPackage/oaf/description
 endef
 
 
-EXTRA_CFLAGS:=-Wno-declaration-after-statement -Wno-strict-prototypes -Wno-unused-variable -Wno-implicit-fallthrough -Wno-missing-braces -Wno-parentheses -Wno-format -Wno-missing-prototypes -Wno-missing-declarations
-
+# EXTRA_CFLAGS:=-Wno-declaration-after-statement -Wno-strict-prototypes -Wno-unused-variable -Wno-implicit-fallthrough -Wno-missing-braces -Wno-parentheses -Wno-format -Wno-missing-prototypes -Wno-missing-declarations
+# 添加编译选项
+EXTRA_CFLAGS := \
+    -I$(src) \
+    -Wno-declaration-after-statement \
+    -Wno-strict-prototypes \
+    -Wno-unused-variable \
+    -Wno-implicit-fallthrough \
+    -Wno-missing-braces \
+    -Wno-parentheses \
+    -Wno-format \
+    -Wno-missing-prototypes \
+    -Wno-missing-declarations \
+    -Wno-error
 
 
 MAKE_OPTS:= \
 	$(KERNEL_MAKE_FLAGS) \
 	M="$(PKG_BUILD_DIR)" \
+	EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
 	$(EXTRA_KCONFIG)
 
 define Build/Compile
+	@echo "compile options: $(MAKE_OPTS)"
 	$(MAKE) -C "$(LINUX_DIR)" \
 		$(MAKE_OPTS) \
-        EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
 		modules
 endef
 
