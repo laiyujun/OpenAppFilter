@@ -54,7 +54,7 @@ define Build/Prepare
     @echo "Makefile 内容:"
     @cat $(CURDIR)/Makefile
     @echo "=============================================="
-    
+
     $(call Build/Prepare/Default)
 endef
 

@@ -8,7 +8,8 @@ PKG_RELEASE:=1
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 include $(INCLUDE_DIR)/package.mk
 
-TARGET_CFLAGS +=-Werror=implicit-function-declaration
+#TARGET_CFLAGS +=-Werror=implicit-function-declaration
+TARGET_CFLAGS += -w -Wno-error -Wno-missing-prototypes -Wno-unused-variable
 define Package/appfilter
   SECTION:=TT Apps
   CATEGORY:=TT Apps
