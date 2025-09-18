@@ -48,14 +48,14 @@ MAKE_OPTS:= \
 
 define Build/Prepare
     # 在准备阶段添加日志
-    @echo "=============================================="
-    @echo "准备构建 OAF 模块"
-    @echo "当前 Makefile 路径: $(CURDIR)/Makefile"
-    @echo "Makefile 内容:"
-    @cat $(CURDIR)/Makefile
-    @echo "=============================================="
+	@echo "=============================================="
+	@echo "准备构建 OAF 模块"
+	@echo "当前 Makefile 路径: $(CURDIR)/Makefile"
+	@echo "Makefile 内容:"
+	@cat $(CURDIR)/Makefile
+	@echo "=============================================="
 
-    $(call Build/Prepare/Default)
+	$(call Build/Prepare/Default)
 endef
 
 define Build/Compile
