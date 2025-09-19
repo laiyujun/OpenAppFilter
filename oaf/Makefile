@@ -28,7 +28,6 @@ endef
 EXTRA_CFLAGS := \
 	-w \
 	-Wno-error \
-    -I$(src) \
     -Wno-declaration-after-statement \
     -Wno-strict-prototypes \
     -Wno-unused-variable \
